@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme.TextErrorAppearance" parent="@android:style/TextAppearance">
+        <!-- Error message appearance here -->
+        <item name="android:textColor">@color/colorRed</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="AppTheme.PasswordGoodAppearance" parent="@android:style/TextAppearance">
+        <!-- Error message appearance here -->
+        <item name="android:textColor">@color/colorOrangeYellow</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="AppTheme.PasswordStrongAppearance" parent="@android:style/TextAppearance">
+        <!-- Error message appearance here -->
+        <item name="android:textColor">@color/colorGreen</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+</resources>
