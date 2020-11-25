@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.TintTypedArray;
 import androidx.core.view.ViewCompat;
 
@@ -24,7 +25,7 @@ import com.google.android.material.internal.CheckableImageButton;
  * copy from android.support.design
  * add the textView and CheckableImageButton to support additional operation
  */
-public class MultiOperationInputLayout extends LinearLayout {
+public class MultiOperationEditText extends LinearLayout {
 
     private Context mContext;
     private final FrameLayout mInputFrame;
@@ -40,7 +41,7 @@ public class MultiOperationInputLayout extends LinearLayout {
     private Drawable mOperationToggleDrawable;
     private final CharSequence mOperationToggleContentDesc;
     private final ColorStateList mOperationToggleTint;
-    private CheckableImageButton mOperationToggleView;
+    private AppCompatCheckBox mOperationToggleView;
 
     private OnClickListener mMultiOperationToggleOnclickListener;
 
@@ -51,16 +52,16 @@ public class MultiOperationInputLayout extends LinearLayout {
     private final static int OPERATION_TYPE_SPINNER = 4;
     private final static int OPERATION_TOGGLE_TYPE_PASSWORD = 2;
 
-    public MultiOperationInputLayout(Context context) {
+    public MultiOperationEditText(Context context) {
         this(context, null);
     }
 
-    public MultiOperationInputLayout(Context context, AttributeSet attrs) {
+    public MultiOperationEditText(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
     @SuppressLint("RestrictedApi")
-    public MultiOperationInputLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MultiOperationEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         // Can't call through to super(Context, AttributeSet, int) since it doesn't exist on API 10
         super(context, attrs);
 
@@ -254,10 +255,13 @@ public class MultiOperationInputLayout extends LinearLayout {
 
         if (isOperationToggleVisible() || isOperationSpinner()) {
             if (mOperationToggleView == null) {
-                mOperationToggleView = (CheckableImageButton) LayoutInflater.from(getContext())
+                mOperationToggleView = (AppCompatCheckBox) LayoutInflater.from(getContext())
                         .inflate(R.layout.view_input_operation_image, mInputFrame, false);
-                mOperationToggleView.setImageDrawable(mOperationToggleDrawable);
-                mOperationToggleView.setImageTintList(mOperationToggleTint);
+//                mOperationToggleView.setBackgroundDrawable(mOperationToggleDrawable);
+                mOperationToggleView.setButtonDrawable(mOperationToggleDrawable);
+                mOperationToggleView.setButtonTintList(mOperationToggleTint);
+//                mOperationToggleView.setImageDrawable(mOperationToggleDrawable);
+//                mOperationToggleView.setImageTintList(mOperationToggleTint);
                 mOperationToggleView.setContentDescription(mOperationToggleContentDesc);
 //                if (isOperationSpinner()) {
 //                    mInputFrame.setEnabled(false);

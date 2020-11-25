@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.design.widget.CheckableImageButton
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.AppCompatCheckBox xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/text_input_password_toggle"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="24dp"
+    android:layout_height="24dp"
     android:layout_gravity="center_vertical|end|right"
     android:background="?attr/selectableItemBackgroundBorderless"
-    android:minHeight="48dp"
-    android:minWidth="48dp"
+    android:minHeight="24dp"
+    android:minWidth="24dp"
+    android:button="@null"
+    app:buttonCompat="@null"
     android:tint="?attr/colorAccent" />

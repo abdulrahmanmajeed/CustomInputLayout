@@ -12,16 +12,37 @@
         android:id="@+id/input_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:hint="@string/app_name"
+        app:isMandatory="true"
         app:textColorErrorField="@android:color/holo_red_dark"
         app:textColorInputField="@android:color/holo_green_dark"
         app:textSizeErrorField="9sp"
         app:textSizeFloatingField="10sp"
-        app:textSizeInputField="14sp"
-        app:isMandatory="true"
-        app:hint="@string/app_name" />
+        app:textSizeInputField="14sp" />
 
     <View
-        android:id="@+id/view_divider1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/holo_red_dark" />
+
+    <com.abe.customedittext.MultiOperationEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:operationToggleIconChecked="true"
+        app:operationToggleType="password"
+        app:operationType="editTextWithToggle">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="password"
+            android:singleLine="true"
+            android:textSize="15sp" />
+    </com.abe.customedittext.MultiOperationEditText>
+
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="10dp"

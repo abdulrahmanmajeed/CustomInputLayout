@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.text.Editable;
 import android.text.InputFilter;
+import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -16,7 +17,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 
@@ -176,26 +176,26 @@ public class DHBInputLayout extends LinearLayout {
         }
     }
 
-    public void setDrawableEnd(@DrawableRes int drawableEnd, boolean isArabic) {
-        if (drawableEnd != 0) {
-            if (isArabic) {
-                mEditText.setCompoundDrawablesWithIntrinsicBounds(drawableEnd, 0, 0, 0);
-            } else {
-                mEditText.setCompoundDrawablesWithIntrinsicBounds(0, 0, drawableEnd, 0);
-            }
-        }
-    }
+//    public void setDrawableEnd(@DrawableRes int drawableEnd, boolean isArabic) {
+//        if (drawableEnd != 0) {
+//            if (isArabic) {
+//                mEditText.setCompoundDrawablesWithIntrinsicBounds(drawableEnd, 0, 0, 0);
+//            } else {
+//                mEditText.setCompoundDrawablesWithIntrinsicBounds(0, 0, drawableEnd, 0);
+//            }
+//        }
+//    }
 
-    public void setDrawableStart(@DrawableRes int drawableStart, boolean isArabic) {
-        if (drawableStart != 0) {
-            if (isArabic) {
-                mEditText.setCompoundDrawablesWithIntrinsicBounds(0, 0, drawableStart, 0);
-            } else {
-                mEditText.setCompoundDrawablesWithIntrinsicBounds(drawableStart, 0, 0, 0);
-            }
-            mEditText.setCompoundDrawablePadding(10);
-        }
-    }
+//    public void setDrawableStart(@DrawableRes int drawableStart, boolean isArabic) {
+//        if (drawableStart != 0) {
+//            if (isArabic) {
+//                mEditText.setCompoundDrawablesWithIntrinsicBounds(0, 0, drawableStart, 0);
+//            } else {
+//                mEditText.setCompoundDrawablesWithIntrinsicBounds(drawableStart, 0, 0, 0);
+//            }
+//            mEditText.setCompoundDrawablePadding(10);
+//        }
+//    }
 
     private void addFloatingView() {
 
