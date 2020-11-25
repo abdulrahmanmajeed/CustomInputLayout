@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MultiOperationInputLayout">
+        <attr name="operationToggleIconChecked" format="boolean"/> <!--enable/disable right icon/image-->
+        <attr name="operationToggleDrawable" format="reference" /> <!--drawable whatever you want to show as your design-->
+        <attr name="operationToggleTint" format="color|reference" />
+        <attr name="operationToggleContentDescription" format="reference" />
+
+        <attr name="operationTextSize" format="integer"/>
+        <attr name="operationTextString" format="string|reference"/>
+        <attr name="operationTextColor" format="color|reference" />
+
+        <attr name="readOnlyView" format="boolean"/>
+
+        <attr name="operationType">
+            <enum name="editTextOnly" value="1" /> <!--default value-->
+            <enum name="editTextWithTextView" value="2" /> <!-- EditField having text on right in case of want additional text -->
+            <enum name="editTextWithToggle" value="3" /> <!--EditField having icon/image on right-->
+            <enum name="spinner" value="4" />
+        </attr>
+        <!--other is default EditText while password make the EditText same as password-->
+        <attr name="operationToggleType">
+            <enum name="other" value="1"/>
+            <enum name="password" value="2"/>
+        </attr>
+    </declare-styleable>
+
+    <style name="MultiOperationInputLayout">
+        <item name="operationToggleDrawable">@drawable/design_password_eye_icon</item>
+        <item name="operationToggleTint">?attr/colorAccent</item>
+        <item name="operationToggleContentDescription">@string/password_toggle_content_description
+        </item>
+    </style>
+
+</resources>

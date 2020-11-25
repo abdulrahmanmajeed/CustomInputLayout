@@ -17,15 +17,9 @@
         <attr name="textColorErrorField" format="color|reference" />
         <attr name="textSizeErrorField" format="dimension" />
 
-        <attr name="operationToggleType">
-            <enum name="password" value="1"/>
-            <enum name="other" value="2"/>
-        </attr>
-
         <attr name="isReadOnly" format="boolean" />
         <attr name="isPassword" format="boolean" />
         <attr name="isNumeric" format="boolean" />
         <attr name="drawableEnd" format="integer" />
-        <attr name="operationToggleDrawable" format="reference" />
     </declare-styleable>
 </resources>
