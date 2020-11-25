@@ -3,12 +3,12 @@ package my.widgets;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
-import android.view.View;
+
+import com.abe.custominputlayout.DHBInputLayout;
 
 public class MainActivity extends AppCompatActivity {
 

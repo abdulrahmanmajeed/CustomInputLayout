@@ -1,4 +1,4 @@
-package my.widgets;
+package com.abe.custominputlayout;
 
 import android.content.Context;
 import android.content.res.TypedArray;
