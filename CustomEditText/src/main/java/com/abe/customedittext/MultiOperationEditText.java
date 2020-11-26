@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.TintTypedArray;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
@@ -39,6 +40,8 @@ public class MultiOperationEditText extends LinearLayout implements WidgetConsta
     private OnClickListener mOperationTextViewOnclickListener;
     private OnClickListener mMultiOperationToggleOnclickListener;
 
+    private CharSequence tempEditTextHint = "";
+
     // Other Features with input
     private TextView mOperationTextView;
     private final CharSequence mOperationText;
@@ -53,21 +56,25 @@ public class MultiOperationEditText extends LinearLayout implements WidgetConsta
 
     // Input View
     private FrameLayout mInputFrame;
-    private EditText mEditText;
+    private AppCompatEditText mEditText;
 
     // Floating View
     private TextView floatingTextView;
-    private boolean isMandatory;
-    private int asteriskColor;
+    private CharSequence customFloatString = "";
+    private final int asteriskColor;
+    int textSizeOfFloatingField = 11;
+    private final ColorStateList textColorFloatingField;
 
     // Error View
     private TextView errorTextView;
     private CharSequence customErrorMessage = "";
-    int textSizeOfErrorField = 34;
-    private int textColorErrorField;
+    int textSizeOfErrorField = 11;
+    private final ColorStateList textColorErrorField;
 
     // Attributes
+    private boolean showHintOnFocus;
     private boolean readOnlyView;
+    private final boolean isMandatory;
 
     // Functions
     private final int mOperationType;
@@ -92,11 +99,11 @@ public class MultiOperationEditText extends LinearLayout implements WidgetConsta
         setWillNotDraw(false);
         setAddStatesFromChildren(true);
 
-        @SuppressLint("RestrictedApi")
-        final TintTypedArray a = TintTypedArray.obtainStyledAttributes(context, attrs,
+        @SuppressLint("RestrictedApi") final TintTypedArray a = TintTypedArray.obtainStyledAttributes(context, attrs,
                 R.styleable.MultiOperationInputLayout, defStyleAttr, R.style.MultiOperationInputLayout);
 
         readOnlyView = a.getBoolean(R.styleable.MultiOperationInputLayout_readOnlyView, false);
+        showHintOnFocus = a.getBoolean(R.styleable.MultiOperationInputLayout_showHintOnFocus, false);
         isMandatory = a.getBoolean(R.styleable.MultiOperationInputLayout_isMandatory, false);
 
         if (a.hasValue(R.styleable.MultiOperationInputLayout_operationToggleDrawable)) {
@@ -113,6 +120,8 @@ public class MultiOperationEditText extends LinearLayout implements WidgetConsta
         if (a.hasValue(R.styleable.MultiOperationInputLayout_operationTextSize)) {
             mOperationTextViewSize = a.getInteger(R.styleable.MultiOperationInputLayout_operationTextSize, mOperationTextViewSize);
         }
+        textSizeOfFloatingField = a.getInteger(R.styleable.MultiOperationInputLayout_floatingTextSize, textSizeOfFloatingField);
+        textSizeOfErrorField = a.getInteger(R.styleable.MultiOperationInputLayout_errorTextSize, textSizeOfErrorField);
         if (a.hasValue(R.styleable.MultiOperationInputLayout_operationTextString)) {
             mOperationText = a.getText(R.styleable.MultiOperationInputLayout_operationTextString);
         } else {
@@ -123,7 +132,28 @@ public class MultiOperationEditText extends LinearLayout implements WidgetConsta
         } else {
             mOperationTextViewColor = ColorStateList.valueOf(getResources().getColor(R.color.text_operation_color));
         }
-        asteriskColor = a.getColor(R.styleable.MultiOperationInputLayout_asteriskColor, ContextCompat.getColor(context, R.color.text_input_error_color_light));
+        asteriskColor = a.getColor(R.styleable.MultiOperationInputLayout_asteriskColor, ContextCompat.getColor(context,
+                R.color.text_input_error_color_light));
+        if (a.hasValue(R.styleable.MultiOperationInputLayout_floatingTextColor)) {
+            textColorFloatingField = a.getColorStateList(R.styleable.MultiOperationInputLayout_floatingTextColor);
+        } else {
+            textColorFloatingField = ColorStateList.valueOf(getResources().getColor(R.color.text_float_color));
+        }
+        if (a.hasValue(R.styleable.MultiOperationInputLayout_errorTextColor)) {
+            textColorErrorField = a.getColorStateList(R.styleable.MultiOperationInputLayout_errorTextColor);
+        } else {
+            textColorErrorField = ColorStateList.valueOf(getResources().getColor(R.color.text_float_color));
+        }
+        if (a.hasValue(R.styleable.MultiOperationInputLayout_floatingTextString)) {
+            customFloatString = a.getText(R.styleable.MultiOperationInputLayout_floatingTextString);
+        } else {
+            customFloatString = "";
+        }
+        if (a.hasValue(R.styleable.MultiOperationInputLayout_errorTextString)) {
+            customErrorMessage = a.getText(R.styleable.MultiOperationInputLayout_errorTextString);
+        } else {
+            customErrorMessage = "";
+        }
         if (a.hasValue(R.styleable.MultiOperationInputLayout_operationToggleTint)) {
             mOperationToggleTint = a.getColorStateList(R.styleable.MultiOperationInputLayout_operationToggleTint);
         } else {
@@ -166,7 +196,7 @@ public class MultiOperationEditText extends LinearLayout implements WidgetConsta
             // for the label
             mInputFrame.setLayoutParams(params);
             updateInputLayoutMargins();
-            setEditText((EditText) child);
+            setEditText((AppCompatEditText) child);
         } else {
             // Carry on adding the View...
             super.addView(child, index, params);
@@ -175,24 +205,56 @@ public class MultiOperationEditText extends LinearLayout implements WidgetConsta
 
     private void addFloatingView() {
 
-        CharSequence strFloatingLabel = "I am your hint";
-        if (isMandatory) {
-//            strFloatingLabel = mEditText.getHint() + " " + getResources().getString(R.string.symbol_asterisk);
-            Spannable placeHolderSpan = new SpannableString(strFloatingLabel);
-            placeHolderSpan.setSpan(new ForegroundColorSpan(asteriskColor), strFloatingLabel.length() - 1,
-                    strFloatingLabel.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            floatingTextView.setText(placeHolderSpan);
-        } else {
-//            strFloatingLabel = hint;
-//            floatingTextView.setText(strFloatingLabel);
-        }
-//        floatingViewSetUp();
+        floatingTextView.setTextColor(textColorFloatingField);
+        floatingTextView.setTextSize(textSizeOfFloatingField);
         addView(floatingTextView);
     }
 
+    private void showHint(AppCompatEditText editText) {
+        CharSequence strFloatingLabel = "";
+        if (editText.getHint() != null) {
+            tempEditTextHint = editText.getHint();
+            if (isMandatory) {
+                if (TextUtils.isEmpty(customFloatString)) {
+                    strFloatingLabel = editText.getHint() + " " + getResources().getString(R.string.symbol_asterisk);
+                } else {
+                    strFloatingLabel = customFloatString + " " + getResources().getString(R.string.symbol_asterisk);
+                }
+                Spannable placeHolderSpan = new SpannableString(strFloatingLabel);
+                placeHolderSpan.setSpan(new ForegroundColorSpan(asteriskColor), strFloatingLabel.length() - 1,
+                        strFloatingLabel.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                floatingTextView.setText(placeHolderSpan);
+                floatingTextView.setVisibility(VISIBLE);
+            } else {
+                if (!TextUtils.isEmpty(customFloatString)) {
+                    floatingTextView.setText(customFloatString);
+                    floatingTextView.setVisibility(VISIBLE);
+                }
+            }
+            mEditText.setHint("");
+        }
+    }
+
+    private void hideHint() {
+        mEditText.setHint(tempEditTextHint);
+        floatingTextView.setVisibility(GONE);
+    }
+
     private void addErrorView() {
-        errorTextView.setText("I am your error");
+        errorTextView.setText(customErrorMessage);
+        errorTextView.setTextSize(textSizeOfErrorField);
+        errorTextView.setTextColor(textColorErrorField);
         addView(errorTextView);
+    }
+
+    private void inputFieldFocus() {
+        mEditText.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                showHint(mEditText);
+            } else {
+                hideHint();
+            }
+        });
     }
 
     private void textWatcher() {
@@ -209,27 +271,31 @@ public class MultiOperationEditText extends LinearLayout implements WidgetConsta
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (TextUtils.isEmpty(editable.toString())) {
-                    floatingTextView.setVisibility(GONE);
-                    errorTextView.setVisibility(GONE);
-                } else {
-                    floatingTextView.setVisibility(VISIBLE);
-                    errorTextView.setVisibility(VISIBLE);
+                if (mEditText.hasFocus()) {
+                    if (TextUtils.isEmpty(editable.toString())) {
+                        hideHint();
+                    } else {
+                        showHint(mEditText);
+                    }
                 }
             }
         });
     }
 
-    private void setEditText(EditText editText) {
+    private void setEditText(AppCompatEditText editText) {
         // If we already have an EditText, throw an exception
         if (mEditText != null) {
             throw new IllegalArgumentException("We already have an EditText, can only have one");
         }
 
         mEditText = editText;
-//        addFloatingView();
         addErrorView();
-        textWatcher();
+        if (showHintOnFocus) {
+            inputFieldFocus();
+        } else {
+            textWatcher();
+        }
+
 
         if (isOperationToggleVisible()) {
             updateOperationToggleView();
@@ -285,12 +351,7 @@ public class MultiOperationEditText extends LinearLayout implements WidgetConsta
 
 //        mEditText.setCursorVisible(false);
 //        mEditText.setInputType(InputType.TYPE_NULL);
-        mEditText.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                performClick();
-            }
-        });
+        mEditText.setOnClickListener(v -> performClick());
 //        mEditText.setOnClickListener(mMultiOperationToggleOnclickListener);
 //        mEditText.setOnClickListener(new OnClickListener() {
 //            @Override
@@ -314,6 +375,7 @@ public class MultiOperationEditText extends LinearLayout implements WidgetConsta
             if (mOperationTextView == null) {
                 mOperationTextView = (TextView) LayoutInflater.from(getContext())
                         .inflate(R.layout.view_input_operation_text, mInputFrame, false);
+                mOperationTextView.setFocusable(false);
                 mOperationTextView.setTextColor(mOperationTextViewColor);
                 mOperationTextView.setTextSize(mOperationTextViewSize);
                 mOperationTextView.setText(mOperationText);
@@ -345,6 +407,7 @@ public class MultiOperationEditText extends LinearLayout implements WidgetConsta
             if (mOperationToggleView == null) {
                 mOperationToggleView = (AppCompatCheckBox) LayoutInflater.from(getContext())
                         .inflate(R.layout.view_input_operation_image, mInputFrame, false);
+                mOperationToggleView.setFocusable(false);
                 mOperationToggleView.setButtonDrawable(mOperationToggleDrawable);
                 mOperationToggleView.setButtonTintList(mOperationToggleTint);
                 mOperationToggleView.setContentDescription(mOperationToggleContentDesc);

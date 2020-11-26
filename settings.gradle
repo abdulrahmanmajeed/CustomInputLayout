@@ -1,4 +1,3 @@
-include ':AllInputLayout'
 include ':CustomInputLayout'
 include ':CustomEditText'
 include ':app'

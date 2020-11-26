@@ -10,8 +10,18 @@
         <attr name="operationTextString" format="string|reference"/>
         <attr name="operationTextColor" format="color|reference" />
 
-        <attr name="readOnlyView" format="boolean"/>
+        <!-- Floating View -->
+        <attr name="floatingTextSize" format="integer"/>
+        <attr name="floatingTextString" format="string|reference"/>
+        <attr name="floatingTextColor" format="color|reference" />
 
+        <!-- Error View -->
+        <attr name="errorTextSize" format="integer"/>
+        <attr name="errorTextString" format="string|reference"/>
+        <attr name="errorTextColor" format="color|reference" />
+
+        <attr name="readOnlyView" format="boolean"/>
+        <attr name="showHintOnFocus" format="boolean"/>
         <attr name="isMandatory" format="boolean"/>
         <attr name="asteriskColor" format="color|reference" />
 

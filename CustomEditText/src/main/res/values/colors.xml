@@ -3,4 +3,6 @@
     <color name="text_input_error_color_dark">#FFFF6E6E</color>
     <color name="text_input_error_color_light">#FFD50000</color>
     <color name="text_operation_color">#CDCACA</color>
+    <color name="text_float_color">#9E9E9E</color>
+    <color name="text_black">#323030</color>
 </resources>

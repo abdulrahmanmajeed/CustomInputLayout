@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
     android:orientation="vertical"
     android:padding="20dp"
     tools:context=".MainActivity">
 
-    <com.abe.custominputlayout.DHBInputLayout
+    <!--<com.abe.custominputlayout.DHBInputLayout
         android:id="@+id/input_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,21 +26,42 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="10dp"
-        android:background="@android:color/holo_red_dark" />
+        android:background="@android:color/holo_red_dark" />-->
 
     <com.abe.customedittext.MultiOperationEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        app:floatingTextString="HI Float"
+        app:isMandatory="true"
         app:operationToggleIconChecked="true"
         app:operationToggleType="password"
-        app:isMandatory="true"
-        app:operationType="editTextWithToggle">
+        app:operationType="editTextWithToggle"
+        app:showHintOnFocus="true">
 
-        <EditText
+        <androidx.appcompat.widget.AppCompatEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="password"
+            android:hint="Password"
+            android:singleLine="true"
+            android:textSize="15sp" />
+
+    </com.abe.customedittext.MultiOperationEditText>
+
+    <com.abe.customedittext.MultiOperationEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:isMandatory="true"
+        app:operationToggleIconChecked="true"
+        app:operationToggleType="password"
+        app:operationType="editTextWithToggle"
+        app:showHintOnFocus="true">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
             android:singleLine="true"
             android:textSize="15sp" />
 

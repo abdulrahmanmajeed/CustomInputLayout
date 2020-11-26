@@ -9,7 +9,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 
-import com.abe.custominputlayout.DHBInputLayout;
+//import com.abe.custominputlayout.DHBInputLayout;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DHBInputLayout inputLayout = findViewById(R.id.input_name);
+//        DHBInputLayout inputLayout = findViewById(R.id.input_name);
 
         String text;
         int color = ContextCompat.getColor(this, android.R.color.holo_red_dark);
