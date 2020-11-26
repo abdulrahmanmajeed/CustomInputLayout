@@ -32,6 +32,7 @@
         android:layout_marginTop="20dp"
         app:operationToggleIconChecked="true"
         app:operationToggleType="password"
+        app:isMandatory="true"
         app:operationType="editTextWithToggle">
 
         <EditText
@@ -40,33 +41,15 @@
             android:hint="password"
             android:singleLine="true"
             android:textSize="15sp" />
+
     </com.abe.customedittext.MultiOperationEditText>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/holo_red_dark" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/usernameWrapper"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/username"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Username"
-            android:inputType="textEmailAddress" />
-
-    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="Login" />
 
 </LinearLayout>

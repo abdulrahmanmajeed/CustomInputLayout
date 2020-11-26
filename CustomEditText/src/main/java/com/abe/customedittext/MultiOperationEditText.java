@@ -33,37 +33,45 @@ import com.google.android.material.internal.CheckableImageButton;
  * copy from android.support.design
  * add the textView and CheckableImageButton to support additional operation
  */
-public class MultiOperationEditText extends LinearLayout {
+public class MultiOperationEditText extends LinearLayout implements WidgetConstants {
 
     private Context mContext;
-    private final FrameLayout mInputFrame;
-    EditText mEditText;
-    private TextView mOperationTextView;
-    private int mOperationTextViewSize = 15;
-    private final ColorStateList mOperationTextViewColor;
-    private final CharSequence mOperationText;
     private OnClickListener mOperationTextViewOnclickListener;
-
-    private boolean readOnlyView;
-    private final boolean mOperationToggleChecked;
-    private Drawable mOperationToggleDrawable;
-    private final CharSequence mOperationToggleContentDesc;
-    private final ColorStateList mOperationToggleTint;
-    private AppCompatCheckBox mOperationToggleView;
-
     private OnClickListener mMultiOperationToggleOnclickListener;
 
-    private final int mOperationType;
-    private final int mOperationToggleType;
-    private final static int OPERATION_TYPE_EDIT_TEXT_WITH_TEXT = 2;
-    private final static int OPERATION_TYPE_EDIT_TEXT_WITH_TOGGLE = 3;
-    private final static int OPERATION_TYPE_SPINNER = 4;
-    private final static int OPERATION_TOGGLE_TYPE_PASSWORD = 2;
+    // Other Features with input
+    private TextView mOperationTextView;
+    private final CharSequence mOperationText;
+    private final ColorStateList mOperationTextViewColor;
+    private int mOperationTextViewSize = 15;
+    // Drawable
+    private AppCompatCheckBox mOperationToggleView;
+    private final CharSequence mOperationToggleContentDesc;
+    private final ColorStateList mOperationToggleTint;
+    private Drawable mOperationToggleDrawable;
+    private final boolean mOperationToggleChecked;
+
+    // Input View
+    private FrameLayout mInputFrame;
+    private EditText mEditText;
 
     // Floating View
     private TextView floatingTextView;
     private boolean isMandatory;
     private int asteriskColor;
+
+    // Error View
+    private TextView errorTextView;
+    private CharSequence customErrorMessage = "";
+    int textSizeOfErrorField = 34;
+    private int textColorErrorField;
+
+    // Attributes
+    private boolean readOnlyView;
+
+    // Functions
+    private final int mOperationType;
+    private final int mOperationToggleType;
 
     public MultiOperationEditText(Context context) {
         this(context, null);
@@ -84,13 +92,8 @@ public class MultiOperationEditText extends LinearLayout {
         setWillNotDraw(false);
         setAddStatesFromChildren(true);
 
-        mInputFrame = new FrameLayout(context);
-        mInputFrame.setAddStatesFromChildren(true);
-//        addFloatingView();
-        addView(mInputFrame);
-        setUpView(context, attrs);
-
-        @SuppressLint("RestrictedApi") final TintTypedArray a = TintTypedArray.obtainStyledAttributes(context, attrs,
+        @SuppressLint("RestrictedApi")
+        final TintTypedArray a = TintTypedArray.obtainStyledAttributes(context, attrs,
                 R.styleable.MultiOperationInputLayout, defStyleAttr, R.style.MultiOperationInputLayout);
 
         readOnlyView = a.getBoolean(R.styleable.MultiOperationInputLayout_readOnlyView, false);
@@ -128,13 +131,26 @@ public class MultiOperationEditText extends LinearLayout {
         }
 
         mOperationToggleChecked = a.getBoolean(R.styleable.MultiOperationInputLayout_operationToggleIconChecked, false);
+
+        setUpView(context, attrs);
+        addFloatingView();
+        addView(mInputFrame);
+
         a.recycle();
     }
 
     private void setUpView(Context context, AttributeSet attrs) {
+
+        mInputFrame = new FrameLayout(context);
+        mInputFrame.setAddStatesFromChildren(true);
+
         floatingTextView = new TextView(context, attrs);
         floatingTextView.setFocusable(false);
         floatingTextView.setClickable(false);
+
+        errorTextView = new TextView(context, attrs);
+        errorTextView.setFocusable(false);
+        errorTextView.setClickable(false);
     }
 
     @Override
@@ -159,9 +175,9 @@ public class MultiOperationEditText extends LinearLayout {
 
     private void addFloatingView() {
 
-        CharSequence strFloatingLabel;
+        CharSequence strFloatingLabel = "I am your hint";
         if (isMandatory) {
-            strFloatingLabel = mEditText.getHint() + " " + getResources().getString(R.string.symbol_asterisk);
+//            strFloatingLabel = mEditText.getHint() + " " + getResources().getString(R.string.symbol_asterisk);
             Spannable placeHolderSpan = new SpannableString(strFloatingLabel);
             placeHolderSpan.setSpan(new ForegroundColorSpan(asteriskColor), strFloatingLabel.length() - 1,
                     strFloatingLabel.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -172,6 +188,11 @@ public class MultiOperationEditText extends LinearLayout {
         }
 //        floatingViewSetUp();
         addView(floatingTextView);
+    }
+
+    private void addErrorView() {
+        errorTextView.setText("I am your error");
+        addView(errorTextView);
     }
 
     private void textWatcher() {
@@ -188,11 +209,12 @@ public class MultiOperationEditText extends LinearLayout {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(TextUtils.isEmpty(editable.toString())) {
+                if (TextUtils.isEmpty(editable.toString())) {
                     floatingTextView.setVisibility(GONE);
-                }
-                else {
+                    errorTextView.setVisibility(GONE);
+                } else {
                     floatingTextView.setVisibility(VISIBLE);
+                    errorTextView.setVisibility(VISIBLE);
                 }
             }
         });
@@ -205,6 +227,8 @@ public class MultiOperationEditText extends LinearLayout {
         }
 
         mEditText = editText;
+//        addFloatingView();
+        addErrorView();
         textWatcher();
 
         if (isOperationToggleVisible()) {
