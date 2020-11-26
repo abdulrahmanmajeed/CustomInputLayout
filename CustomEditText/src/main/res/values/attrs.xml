@@ -12,6 +12,9 @@
 
         <attr name="readOnlyView" format="boolean"/>
 
+        <attr name="isMandatory" format="boolean"/>
+        <attr name="asteriskColor" format="color|reference" />
+
         <attr name="operationType">
             <enum name="editTextOnly" value="1" /> <!--default value-->
             <enum name="editTextWithTextView" value="2" /> <!-- EditField having text on right in case of want additional text -->

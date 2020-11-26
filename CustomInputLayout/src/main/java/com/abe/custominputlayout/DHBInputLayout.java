@@ -24,7 +24,8 @@ public class DHBInputLayout extends LinearLayout {
 
     // Widgets
     private EditText mEditText;
-    private TextView floatingTextView, errorTextView;
+    private TextView floatingTextView;
+    private TextView errorTextView;
     // Display data
     private CharSequence hint;
     private CharSequence customErrorMessage = "";

@@ -3,6 +3,7 @@ package my.widgets;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -26,7 +27,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         findViewById(R.id.btn_login).setOnClickListener(v -> {
-            inputLayout.showErrorView();
+//            inputLayout.showErrorView();
+            startActivity(new Intent(this, SecondActivity.class));
 
         });
     }
