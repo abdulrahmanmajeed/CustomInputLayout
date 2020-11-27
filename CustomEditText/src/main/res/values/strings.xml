@@ -5,4 +5,5 @@
     <string name="spinner_default_value">Choose Your Value</string>
     <string name="msg_field_required">is required</string>
     <string name="symbol_asterisk" translatable="false">*</string>
+    <string name="field_required" translatable="false">Field is required</string>
 </resources>

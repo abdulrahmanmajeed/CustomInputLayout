@@ -141,7 +141,7 @@ public class MultiOperationEditText extends LinearLayout implements WidgetConsta
         if (a.hasValue(R.styleable.MultiOperationInputLayout_errorTextColor)) {
             textColorErrorField = a.getColorStateList(R.styleable.MultiOperationInputLayout_errorTextColor);
         } else {
-            textColorErrorField = ColorStateList.valueOf(getResources().getColor(R.color.text_float_color));
+            textColorErrorField = ColorStateList.valueOf(getResources().getColor(R.color.text_input_error_color_light));
         }
         if (a.hasValue(R.styleable.MultiOperationInputLayout_floatingTextString)) {
             customFloatString = a.getText(R.styleable.MultiOperationInputLayout_floatingTextString);
@@ -176,10 +176,12 @@ public class MultiOperationEditText extends LinearLayout implements WidgetConsta
         floatingTextView = new TextView(context, attrs);
         floatingTextView.setFocusable(false);
         floatingTextView.setClickable(false);
+        floatingTextView.setLongClickable(false);
 
         errorTextView = new TextView(context, attrs);
         errorTextView.setFocusable(false);
         errorTextView.setClickable(false);
+        errorTextView.setLongClickable(false);
     }
 
     @Override
@@ -252,11 +254,15 @@ public class MultiOperationEditText extends LinearLayout implements WidgetConsta
 
     private void inputFieldFocus() {
         mEditText.setOnFocusChangeListener((v, hasFocus) -> {
-            if (hasFocus) {
-                showHint(mEditText);
-            } else {
-                if (TextUtils.isEmpty(mEditText.getText().toString()))
-                    hideHint();
+            if (showHintOnFocus) {
+                if (hasFocus) {
+                    showHint(mEditText);
+                } else {
+                    if (TextUtils.isEmpty(mEditText.getText().toString()))
+                        hideHint();
+                    if (isMandatory && TextUtils.isEmpty(mEditText.toString()))
+                        showError();
+                }
             }
         });
     }
@@ -278,8 +284,12 @@ public class MultiOperationEditText extends LinearLayout implements WidgetConsta
                 if (mEditText.hasFocus()) {
                     if (TextUtils.isEmpty(editable.toString())) {
                         hideHint();
+                        if (isMandatory)
+                            showError();
                     } else {
                         showHint(mEditText);
+                        if (isMandatory)
+                            hideError();
                     }
                 }
             }
@@ -294,12 +304,8 @@ public class MultiOperationEditText extends LinearLayout implements WidgetConsta
 
         mEditText = editText;
         addErrorView();
-        if (showHintOnFocus) {
-            inputFieldFocus();
-        } else {
-            textWatcher();
-        }
-
+        inputFieldFocus();
+        textWatcher();
 
         if (isOperationToggleVisible()) {
             updateOperationToggleView();
@@ -345,24 +351,10 @@ public class MultiOperationEditText extends LinearLayout implements WidgetConsta
     @SuppressLint("ClickableViewAccessibility")
     private void readOnlyEditText() {
         mEditText.setEnabled(false);
-        mEditText.setClickable(true);
+        mEditText.setClickable(false);
+        mEditText.setLongClickable(false);
         mEditText.setFocusableInTouchMode(false);
         mEditText.setFocusable(false);
-
-//        setEnabled(true);
-//        setFocusable(true);
-//        setFocusableInTouchMode(true);
-
-//        mEditText.setCursorVisible(false);
-//        mEditText.setInputType(InputType.TYPE_NULL);
-        mEditText.setOnClickListener(v -> performClick());
-//        mEditText.setOnClickListener(mMultiOperationToggleOnclickListener);
-//        mEditText.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(mContext, "Oh you want spinner?", Toast.LENGTH_SHORT).show();
-//            }
-//        });
     }
 
     private void updateOperationTextView() {
@@ -383,7 +375,15 @@ public class MultiOperationEditText extends LinearLayout implements WidgetConsta
                 mOperationTextView.setTextColor(mOperationTextViewColor);
                 mOperationTextView.setTextSize(mOperationTextViewSize);
                 mOperationTextView.setText(mOperationText);
-                mOperationTextView.setOnClickListener(mOperationTextViewOnclickListener);
+                if (isOperationSpinner()) {
+                    mOperationTextView.setEnabled(false);
+                    mOperationTextView.setClickable(false);
+                    mOperationTextView.setLongClickable(false);
+                    mOperationTextView.setFocusableInTouchMode(false);
+                    mOperationTextView.setFocusable(false);
+                } else {
+                    mOperationTextView.setOnClickListener(mOperationTextViewOnclickListener);
+                }
                 mInputFrame.addView(mOperationTextView);
             }
 
@@ -415,12 +415,6 @@ public class MultiOperationEditText extends LinearLayout implements WidgetConsta
                 mOperationToggleView.setButtonDrawable(mOperationToggleDrawable);
                 mOperationToggleView.setButtonTintList(mOperationToggleTint);
                 mOperationToggleView.setContentDescription(mOperationToggleContentDesc);
-//                if (isOperationSpinner()) {
-//                    mInputFrame.setEnabled(false);
-//                    mInputFrame.setClickable(false);
-//                    mInputFrame.setFocusable(false);
-//                    mInputFrame.setFocusableInTouchMode(false);
-//                }
                 mInputFrame.addView(mOperationToggleView);
 
                 if (passwordToggleEnable()) {
@@ -428,15 +422,10 @@ public class MultiOperationEditText extends LinearLayout implements WidgetConsta
                 } else {
                     if (isOperationSpinner()) {
                         mOperationToggleView.setEnabled(false);
-                        mOperationToggleView.setClickable(true);
+                        mOperationToggleView.setClickable(false);
+                        mOperationToggleView.setLongClickable(false);
                         mOperationToggleView.setFocusableInTouchMode(false);
                         mOperationToggleView.setFocusable(false);
-
-//                        setClickable(true);
-//                        setFocusable(true);
-//                        setFocusableInTouchMode(true);
-
-                        mOperationToggleView.setOnClickListener(v -> performClick());
                     } else {
                         mOperationToggleView.setOnClickListener(mMultiOperationToggleOnclickListener);
                     }
@@ -499,10 +488,6 @@ public class MultiOperationEditText extends LinearLayout implements WidgetConsta
                 && mEditText.getTransformationMethod() instanceof PasswordTransformationMethod;
     }
 
-//    private boolean shouldShowOperationIcon() {
-//        return isOperationToggleVisible();
-//    }
-
     private boolean passwordToggleEnable() {
         return mOperationToggleType == OPERATION_TOGGLE_TYPE_PASSWORD;
     }
@@ -545,9 +530,44 @@ public class MultiOperationEditText extends LinearLayout implements WidgetConsta
         }
     }
 
+    public void setCustomErrorMessage(String str) {
+        this.customErrorMessage = str;
+    }
+
+    public String getText() {
+        if (mEditText != null) {
+            return String.valueOf(mEditText.getText());
+        }
+        return "";
+    }
+
     public void clear() {
         if (mEditText != null) {
             mEditText.getText().clear();
+        }
+    }
+
+    public void hideError() {
+        if (errorTextView != null) {
+            errorTextView.setVisibility(GONE);
+        }
+    }
+
+    public void showError() {
+        if (errorTextView != null) {
+            errorTextView.setVisibility(VISIBLE);
+            errorTextView.setText(R.string.field_required);
+        }
+    }
+
+    public void showError(String str) {
+        if (errorTextView != null) {
+            errorTextView.setVisibility(VISIBLE);
+            setCustomErrorMessage(str);
+            if (TextUtils.isEmpty(customErrorMessage))
+                errorTextView.setText(R.string.field_required);
+            else
+                errorTextView.setText(customErrorMessage);
         }
     }
 }
