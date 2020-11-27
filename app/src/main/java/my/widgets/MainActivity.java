@@ -1,17 +1,10 @@
 package my.widgets;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.MultiOperationEditText;
-import android.text.Spannable;
-import android.text.SpannableString;
+import android.support.design.widget.NXBTextInputLayout;
 import android.text.TextUtils;
-import android.text.style.ForegroundColorSpan;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,10 +14,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MultiOperationEditText emailInputLayout = findViewById(R.id.email_input_layout);
-        MultiOperationEditText inputSearch = findViewById(R.id.field_search);
-        MultiOperationEditText spinnerView = findViewById(R.id.spinner_layout);
-        MultiOperationEditText mandatoryField = findViewById(R.id.mandatory_field);
+        NXBTextInputLayout emailInputLayout = findViewById(R.id.email_input_layout);
+        NXBTextInputLayout inputSearch = findViewById(R.id.field_search);
+        NXBTextInputLayout spinnerView = findViewById(R.id.spinner_layout);
+        NXBTextInputLayout mandatoryField = findViewById(R.id.mandatory_field);
 
         emailInputLayout.setOperationTextViewOnclickListener(view -> {
 //                TODO some functionality

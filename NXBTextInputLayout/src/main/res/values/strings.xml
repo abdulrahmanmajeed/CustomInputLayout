@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MultiOperationEditText</string>
+    <string name="app_name">NXBTextInputLayout</string>
     <string name="character_counter_pattern" translatable="false">%1$d / %2$d</string>
     <string name="password_toggle_content_description">Toggle password visibility</string>
     <string name="spinner_default_value">Choose Your Value</string>

@@ -25,14 +25,13 @@ import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.TintTypedArray;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.ViewCompat;
 
 /**
  * copy from android.support.design
  * add the textView and CheckableImageButton to support additional operation
  */
-public class MultiOperationEditText extends LinearLayout implements WidgetConstants {
+public class NXBTextInputLayout extends LinearLayout implements WidgetConstants {
 
     private Context mContext;
     private OnClickListener mOperationTextViewOnclickListener;
@@ -78,16 +77,16 @@ public class MultiOperationEditText extends LinearLayout implements WidgetConsta
     private final int mOperationType;
     private final int mOperationToggleType;
 
-    public MultiOperationEditText(Context context) {
+    public NXBTextInputLayout(Context context) {
         this(context, null);
     }
 
-    public MultiOperationEditText(Context context, AttributeSet attrs) {
+    public NXBTextInputLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
     @SuppressLint("RestrictedApi")
-    public MultiOperationEditText(Context context, AttributeSet attrs, int defStyleAttr) {
+    public NXBTextInputLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         // Can't call through to super(Context, AttributeSet, int) since it doesn't exist on API 10
         super(context, attrs);
 

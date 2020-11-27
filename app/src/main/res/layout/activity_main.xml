@@ -7,6 +7,7 @@
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
     android:padding="20dp"
+    android:scrollbars="none"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -19,7 +20,7 @@
             android:layout_height="wrap_content"
             android:text="@string/email_field_with_clickable_text" />
 
-        <android.support.design.widget.MultiOperationEditText
+        <android.support.design.widget.NXBTextInputLayout
             android:id="@+id/email_input_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,14 +36,14 @@
                 android:inputType="textEmailAddress"
                 android:singleLine="true"
                 android:textSize="15sp" />
-        </android.support.design.widget.MultiOperationEditText>
+        </android.support.design.widget.NXBTextInputLayout>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/password_with_toggle_eye" />
 
-        <android.support.design.widget.MultiOperationEditText
+        <android.support.design.widget.NXBTextInputLayout
             android:id="@+id/password_input_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,14 +58,14 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/password_hint"
                 android:inputType="textPassword" />
-        </android.support.design.widget.MultiOperationEditText>
+        </android.support.design.widget.NXBTextInputLayout>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/password_with_different_place_holder" />
 
-        <android.support.design.widget.MultiOperationEditText
+        <android.support.design.widget.NXBTextInputLayout
             android:id="@+id/mandatory_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -83,14 +84,14 @@
                 android:singleLine="true"
                 android:textSize="15sp" />
 
-        </android.support.design.widget.MultiOperationEditText>
+        </android.support.design.widget.NXBTextInputLayout>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/search_sample" />
 
-        <android.support.design.widget.MultiOperationEditText
+        <android.support.design.widget.NXBTextInputLayout
             android:id="@+id/field_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -108,14 +109,14 @@
                 android:singleLine="true"
                 android:textSize="15sp" />
 
-        </android.support.design.widget.MultiOperationEditText>
+        </android.support.design.widget.NXBTextInputLayout>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/spinner_view" />
 
-        <android.support.design.widget.MultiOperationEditText
+        <android.support.design.widget.NXBTextInputLayout
             android:id="@+id/spinner_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -127,7 +128,7 @@
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:textSize="15sp" />
-        </android.support.design.widget.MultiOperationEditText>
+        </android.support.design.widget.NXBTextInputLayout>
 
 
         <Button
