@@ -14,16 +14,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
-//import com.abe.custominputlayout.DHBInputLayout;
-
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-//        DHBInputLayout inputLayout = findViewById(R.id.input_name);
 
         MultiOperationEditText emailInputLayout = findViewById(R.id.email_input_layout);
         MultiOperationEditText inputSearch = findViewById(R.id.field_search);
