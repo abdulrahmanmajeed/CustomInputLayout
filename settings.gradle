@@ -1,4 +1,3 @@
-include ':CustomInputLayout'
 include ':CustomEditText'
 include ':app'
 rootProject.name = "Widgets"

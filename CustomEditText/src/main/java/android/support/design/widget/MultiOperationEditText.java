@@ -1,9 +1,8 @@
-package com.abe.customedittext;
+package android.support.design.widget;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.Spannable;
@@ -26,9 +25,8 @@ import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.TintTypedArray;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.ViewCompat;
-
-import com.google.android.material.internal.CheckableImageButton;
 
 /**
  * copy from android.support.design
@@ -106,17 +104,18 @@ public class MultiOperationEditText extends LinearLayout implements WidgetConsta
         showHintOnFocus = a.getBoolean(R.styleable.MultiOperationInputLayout_showHintOnFocus, false);
         isMandatory = a.getBoolean(R.styleable.MultiOperationInputLayout_isMandatory, false);
 
-        if (a.hasValue(R.styleable.MultiOperationInputLayout_operationToggleDrawable)) {
-            mOperationToggleDrawable = a.getDrawable(R.styleable.MultiOperationInputLayout_operationToggleDrawable);
-        } else {
-            mOperationToggleDrawable = getResources().getDrawable(R.drawable.design_password_eye_icon);
-        }
-        mOperationToggleDrawable = a.getDrawable(R.styleable.MultiOperationInputLayout_operationToggleDrawable);
         mOperationToggleContentDesc = a.getText(
                 R.styleable.MultiOperationInputLayout_operationToggleContentDescription);
         mOperationType = a.getInt(R.styleable.MultiOperationInputLayout_operationType, 1);
         mOperationToggleType = a.getInt(R.styleable.MultiOperationInputLayout_operationToggleType, 1);
-
+        if (a.hasValue(R.styleable.MultiOperationInputLayout_operationToggleDrawable)) {
+            mOperationToggleDrawable = a.getDrawable(R.styleable.MultiOperationInputLayout_operationToggleDrawable);
+        } else {
+            if (isOperationSpinner())
+                mOperationToggleDrawable = ContextCompat.getDrawable(context, R.drawable.spinner_drop_down);
+            else if (passwordToggleEnable())
+                mOperationToggleDrawable = ContextCompat.getDrawable(context, R.drawable.design_password_eye_icon);
+        }
         if (a.hasValue(R.styleable.MultiOperationInputLayout_operationTextSize)) {
             mOperationTextViewSize = a.getInteger(R.styleable.MultiOperationInputLayout_operationTextSize, mOperationTextViewSize);
         }
@@ -229,9 +228,12 @@ public class MultiOperationEditText extends LinearLayout implements WidgetConsta
                 if (!TextUtils.isEmpty(customFloatString)) {
                     floatingTextView.setText(customFloatString);
                     floatingTextView.setVisibility(VISIBLE);
+                } else {
+                    floatingTextView.setText(editText.getHint());
+                    floatingTextView.setVisibility(VISIBLE);
                 }
             }
-            mEditText.setHint("");
+//            mEditText.setHint("");
         }
     }
 
@@ -252,7 +254,8 @@ public class MultiOperationEditText extends LinearLayout implements WidgetConsta
             if (hasFocus) {
                 showHint(mEditText);
             } else {
-                hideHint();
+                if (TextUtils.isEmpty(mEditText.getText().toString()))
+                    hideHint();
             }
         });
     }
@@ -334,7 +337,7 @@ public class MultiOperationEditText extends LinearLayout implements WidgetConsta
         }
         readOnlyView = true;
         readOnlyEditText();
-        mEditText.setText(R.string.spinner_default_value);
+        mEditText.setHint(R.string.spinner_default_value);
         updateOperationToggleView();
     }
 

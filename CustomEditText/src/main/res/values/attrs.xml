@@ -39,10 +39,7 @@
     </declare-styleable>
 
     <style name="MultiOperationInputLayout">
-        <item name="operationToggleDrawable">@drawable/design_password_eye_icon</item>
         <item name="operationToggleTint">?attr/colorAccent</item>
-        <item name="operationToggleContentDescription">@string/password_toggle_content_description
-        </item>
     </style>
 
 </resources>

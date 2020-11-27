@@ -5,9 +5,12 @@ import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.MultiOperationEditText;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.view.View;
+import android.widget.Toast;
 
 //import com.abe.custominputlayout.DHBInputLayout;
 
@@ -19,6 +22,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 //        DHBInputLayout inputLayout = findViewById(R.id.input_name);
+
+        MultiOperationEditText emailInputLayout = findViewById(R.id.email_input_layout);
+
+        emailInputLayout.setOperationTextViewOnclickListener(view -> {
+//                TODO some functionality
+            Toast.makeText(MainActivity.this, "you clicked on forgot", Toast.LENGTH_SHORT).show();
+        });
 
         String text;
         int color = ContextCompat.getColor(this, android.R.color.holo_red_dark);

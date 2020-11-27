@@ -1,5 +1,0 @@
-<resources>
-    <string name="app_name">Widgets</string>
-    <string name="msg_field_required">is required</string>
-    <string name="symbol_asterisk" translatable="false">*</string>
-</resources>

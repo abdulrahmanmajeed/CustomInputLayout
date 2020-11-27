@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Widgets</string>
+    <string name="forget_password">Forgot?</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="email_field_with_clickable_text">Email Field with clickable text</string>
+    <string name="password_with_toggle_eye">Password with toggle eye</string>
+    <string name="password_with_different_place_holder">show Password by default and different place holder\n show hint on focus</string>
+    <string name="spinner_view">Spinner View</string>
 </resources>

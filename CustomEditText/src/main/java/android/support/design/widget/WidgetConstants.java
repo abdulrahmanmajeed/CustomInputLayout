@@ -1,4 +1,4 @@
-package com.abe.customedittext;
+package android.support.design.widget;
 
 public interface WidgetConstants {
 
