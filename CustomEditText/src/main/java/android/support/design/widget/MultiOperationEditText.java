@@ -212,10 +212,11 @@ public class MultiOperationEditText extends LinearLayout implements WidgetConsta
     private void showHint(AppCompatEditText editText) {
         CharSequence strFloatingLabel = "";
         if (editText.getHint() != null) {
-            tempEditTextHint = editText.getHint();
+            if (!TextUtils.isEmpty(editText.getHint()))
+                tempEditTextHint = editText.getHint();
             if (isMandatory) {
                 if (TextUtils.isEmpty(customFloatString)) {
-                    strFloatingLabel = editText.getHint() + " " + getResources().getString(R.string.symbol_asterisk);
+                    strFloatingLabel = tempEditTextHint + " " + getResources().getString(R.string.symbol_asterisk);
                 } else {
                     strFloatingLabel = customFloatString + " " + getResources().getString(R.string.symbol_asterisk);
                 }
@@ -229,11 +230,11 @@ public class MultiOperationEditText extends LinearLayout implements WidgetConsta
                     floatingTextView.setText(customFloatString);
                     floatingTextView.setVisibility(VISIBLE);
                 } else {
-                    floatingTextView.setText(editText.getHint());
+                    floatingTextView.setText(tempEditTextHint);
                     floatingTextView.setVisibility(VISIBLE);
                 }
             }
-//            mEditText.setHint("");
+            mEditText.setHint("");
         }
     }
 
@@ -541,6 +542,12 @@ public class MultiOperationEditText extends LinearLayout implements WidgetConsta
             if (mOperationToggleView != null) {
                 mOperationToggleView.setOnClickListener(mMultiOperationToggleOnclickListener);
             }
+        }
+    }
+
+    public void clear() {
+        if (mEditText != null) {
+            mEditText.getText().clear();
         }
     }
 }

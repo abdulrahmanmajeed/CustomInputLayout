@@ -7,4 +7,6 @@
     <string name="password_with_toggle_eye">Password with toggle eye</string>
     <string name="password_with_different_place_holder">show Password by default and different place holder\n show hint on focus</string>
     <string name="spinner_view">Spinner View</string>
+    <string name="search_sample">Search Sample</string>
+    <string name="search">Search</string>
 </resources>

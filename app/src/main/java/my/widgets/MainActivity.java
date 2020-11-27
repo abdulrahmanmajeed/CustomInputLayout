@@ -24,10 +24,16 @@ public class MainActivity extends AppCompatActivity {
 //        DHBInputLayout inputLayout = findViewById(R.id.input_name);
 
         MultiOperationEditText emailInputLayout = findViewById(R.id.email_input_layout);
+        MultiOperationEditText inputSearch = findViewById(R.id.field_search);
 
         emailInputLayout.setOperationTextViewOnclickListener(view -> {
 //                TODO some functionality
             Toast.makeText(MainActivity.this, "you clicked on forgot", Toast.LENGTH_SHORT).show();
+        });
+
+        inputSearch.setOperationToggleOnclickListener(view -> {
+
+            inputSearch.clear();
         });
 
         String text;

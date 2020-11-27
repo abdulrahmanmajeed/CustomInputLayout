@@ -87,6 +87,31 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/search_sample" />
+
+        <android.support.design.widget.MultiOperationEditText
+            android:id="@+id/field_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:operationToggleDrawable="@android:drawable/ic_menu_close_clear_cancel"
+            app:operationToggleTint="@color/text_operation_color"
+            app:operationToggleType="other"
+            app:operationType="editTextWithToggle"
+            app:showHintOnFocus="true">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/search"
+                android:singleLine="true"
+                android:textSize="15sp" />
+
+        </android.support.design.widget.MultiOperationEditText>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/spinner_view" />
 
         <android.support.design.widget.MultiOperationEditText
