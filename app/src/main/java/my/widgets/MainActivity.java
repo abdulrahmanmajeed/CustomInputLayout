@@ -55,6 +55,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showToast(String str) {
-        Toast.makeText(MainActivity.this, "you clicked on forgot", Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, str, Toast.LENGTH_SHORT).show();
     }
 }
